@@ -1,4 +1,4 @@
-# fly.toml file generated for metrics-api-swift-heroes on 2023-03-20T23:31:10Z
+# fly.toml file generated for metrics-api-swift-heroes on 2023-03-21T08:52:57Z
 
 app = "metrics-api-swift-heroes"
 kill_signal = "SIGINT"
