@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "compute",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-cloud/Compute",
+      "state" : {
+        "revision" : "9b5bc752fc532b47a6f273405d5b480d83ac8b2c",
+        "version" : "2.15.0"
+      }
+    },
+    {
       "identity" : "console-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/console-kit.git",
