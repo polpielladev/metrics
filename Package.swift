@@ -19,7 +19,9 @@ let package = Package(
         .package(url: "https://github.com/swift-cloud/Compute", from: "2.8.0"),
         // ⚡️ AWS Lambda
         .package(url: "https://github.com/swift-server/swift-aws-lambda-runtime.git", exact: "1.0.0-alpha.1"),
-        .package(url: "https://github.com/swift-server/swift-aws-lambda-events.git", exact: "0.1.0")
+        .package(url: "https://github.com/swift-server/swift-aws-lambda-events.git", exact: "0.1.0"),
+        // 🍁 Leaf
+        .package(url: "https://github.com/vapor/leaf.git", exact: "4.2.4")
     ],
     targets: [
         // 💧 Vapor
@@ -28,7 +30,8 @@ let package = Package(
             dependencies: [
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
-                .product(name: "Vapor", package: "vapor")
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "Leaf", package: "leaf")
             ],
             swiftSettings: [
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))

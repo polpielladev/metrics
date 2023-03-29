@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-screen w-screen bg-gray-800">
+    <main class="h-screen w-screen bg-gray-800">
+      <div
+        class="mx-auto text-3xl font-semibold max-w-5xl flex flex-col h-full justify-center text-white p-4 gap-6"
+      >
+        <section class="flex flex-col gap-2">
+          <h1 class="text-5xl">QReate Metrics</h1>
+          <p class="text-sm font-normal">
+            A dashboard to aggregate all workflows data for your application.
+          </p>
+        </section>
+
+        <section>
+          <p class="text-2xl font-semibold mb-4">All workflows</p>
+          <div id="chart"></div>
+        </section>
+
+        <section>
+          <p class="text-2xl font-semibold mb-4">Last 10 builds</p>
+          <div id="list-of-metrics"></div>
+        </section>
+
+        <section>
+          <p class="text-2xl font-semibold mb-4">Most time consuming runs</p>
+          <div id="list-of-metrics"></div>
+        </section>
+      </div>
+    </main>
+    <script type="text/javascript">
+      const metrics = [
+        {
+          workflow: "main",
+          duration: 10.5,
+          status: "success",
+          date: "2023-03-27T18:14:10.194Z",
+        },
+        {
+          workflow: "main",
+          duration: 14,
+          status: "success",
+          date: "2023-03-23T18:14:10.194Z",
+        },
+        {
+          workflow: "main",
+          duration: 15,
+          status: "success",
+          date: "2023-03-22T18:14:10.194Z",
+        },
+        {
+          workflow: "main",
+          duration: 9,
+          status: "success",
+          date: "2023-03-21T18:14:10.194Z",
+        },
+        {
+          workflow: "tests",
+          duration: 10.5,
+          status: "success",
+          date: "2023-03-27T18:14:10.194Z",
+        },
+        {
+          workflow: "tests",
+          duration: 19,
+          status: "success",
+          date: "2023-03-23T18:14:10.194Z",
+        },
+        {
+          workflow: "tests",
+          duration: 20,
+          status: "success",
+          date: "2023-03-22T18:14:10.194Z",
+        },
+        {
+          workflow: "tests",
+          duration: 30,
+          status: "success",
+          date: "2023-03-21T18:14:10.194Z",
+        },
+      ];
+
+      google.charts.load("current", { packages: ["corechart", "line"] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var series = [];
+        var rows = [];
+        var maxDate = null;
+        for (const [index, item] of Object.entries(metrics)) {
+          var date = new Date(item["date"]);
+          if (date > maxDate) {
+            maxDate = date;
+          }
+          var name = item["workflow"];
+          if (!series.includes(name)) {
+            series.push(name);
+          }
+          var row = [];
+          row.push(date);
+          series.forEach(function (group, index) {
+            if (group == name) {
+              row.push(item["duration"]);
+            } else {
+              row.push(null);
+            }
+          });
+          rows.push(row);
+        }
+
+        var data = new google.visualization.DataTable();
+        data.addColumn("datetime", "Date");
+        series.forEach(function (item, index) {
+          data.addColumn("number", item);
+        });
+
+        var pad_array = function (arr, len, fill) {
+          return arr.concat(Array(len).fill(fill)).slice(0, len);
+        };
+
+        var paddedRows = [];
+        rows.forEach(function (row, index) {
+          row = pad_array(row, series.length + 1, null);
+          paddedRows.push(row);
+        });
+
+        data.addRows(paddedRows);
+        var options = {
+          title: "Workflow Durations",
+          curveType: "function",
+          legend: { position: "bottom" },
+          explorer: {},
+          vAxis: {
+            title: "Duration",
+            format: "short",
+          },
+          hAxis: {
+            format: "d/M/yy",
+            viewWindow: {
+              // min: minDate,
+              max: data.getColumnRange(0).max,
+            },
+          },
+          interpolateNulls: true,
+        };
+        var chart = new google.visualization.LineChart(
+          document.getElementById("chart")
+        );
+        chart.draw(data, options);
+      }
+    </script>
+  </body>
+</html>
