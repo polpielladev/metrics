@@ -9,9 +9,6 @@ struct FrontendController: RouteCollection {
         let allMetrics = try await req
             .client
             .get("http://localhost:8080/api/metrics")
-        
-        print(try
-              allMetrics.content.decode([Metric].self))
 
         return try await req.view.render("Home")
     }
