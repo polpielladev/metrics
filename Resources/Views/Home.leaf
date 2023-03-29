@@ -25,12 +25,9 @@
 
         <section>
           <p class="text-2xl font-semibold mb-4">Last 10 builds</p>
-          <div id="list-of-metrics"></div>
-        </section>
-
-        <section>
-          <p class="text-2xl font-semibold mb-4">Most time consuming runs</p>
-          <div id="list-of-metrics"></div>
+            #for(metric in metrics):
+                <p>#(metric.workflow)</p>
+            #endfor
         </section>
       </div>
     </main>
