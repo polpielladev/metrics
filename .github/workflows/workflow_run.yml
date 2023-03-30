@@ -1,3 +1,4 @@
+name: Log workflow run metrics
 on:
   workflow_run:
     workflows: [Main]
