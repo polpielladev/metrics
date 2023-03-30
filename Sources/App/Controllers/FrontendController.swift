@@ -10,11 +10,9 @@ struct FrontendController: RouteCollection {
     }
     
     func get(req: Request) async throws -> View {
-        let allMetrics = try await req
-            .client
-            .get("http://localhost:8080/api/metrics")
-            .content
-            .decode([Metric].self)
+        let allMetrics = try await Metric.query(on: req.db)
+            .sort(\.$date, .descending)
+            .all()
 
         return try await req.view.render("Home", HomeContext(metrics: allMetrics))
     }
