@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          swift run GithubActionsMetricsCLI \
-            "${{ github.event.workflow_run.name }}" \
-            "${{ github.event.workflow_run.updated_at }}" \
-            "${{ github.event.workflow_run.run_started_at }}" \ 
-            "${{ github.event.workflow_run.head_repository.name }}" \ 
-            "${{ github.event.workflow_run.conclusion }}" \ 
-            "${{ github.event.workflow_run.head_commit.author.name }}"
+          echo "Workflow name: ${{ github.event.workflow_run.name }}"
+          echo "Workflow updated at: ${{ github.event.workflow_run.updated_at }}"
+          echo "Workflow started at: ${{ github.event.workflow_run.run_started_at }}"
+          echo "Workflow repository: ${{ github.event.workflow_run.head_repository.name }}"
+          echo "Workflow conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "Workflow author: ${{ github.event.workflow_run.head_commit.author.name }}"
+          swift run GithubActionsMetricsCLI "${{ github.event.workflow_run.name }}" "${{ github.event.workflow_run.updated_at }}" "${{ github.event.workflow_run.run_started_at }}" "${{ github.event.workflow_run.head_repository.name }}" "${{ github.event.workflow_run.conclusion }}" "${{ github.event.workflow_run.head_commit.author.name }}"
