@@ -1,6 +1,16 @@
 import Foundation
 import ArgumentParser
 
+struct AnalyticsPayload: Encodable {
+    let workflow: String
+    let duration: Double
+    let date: Date
+    let provider: String
+    let author: String
+    let outcome: String
+    let repository: String
+}
+
 @main
 struct GithubActionsMetricsCLI: AsyncParsableCommand {
     @Argument private var workflow: String
@@ -16,19 +26,24 @@ struct GithubActionsMetricsCLI: AsyncParsableCommand {
         }
 
         let duration = updateAtDate.timeIntervalSince(startedAtDate)
-    
-        print(workflow)
-        print(duration)
-        print(repository)
-        print(outcome)
-        print(author)
+        
+        let payload = AnalyticsPayload(workflow: workflow, duration: duration, date: startedAtDate, provider: "github-actions", author: author, outcome: outcome, repository: repository)
+        let url = URL(string: "http://localhost:8080/api/metrics")!
+        var request = URLRequest(url: url)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try encoder.encode(payload)
+        
+        let (_, _) = try await URLSession.shared.data(for: request)
     }
 }
 
 extension Date {
     init?(from isoString: String) {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if let date = dateFormatter.date(from: isoString) {
             self = date
