@@ -10,7 +10,6 @@ struct CreateMetric: Migration {
             .field("provider", .string, .required)
             .field("outcome", .string, .required)
             .field("repository", .string, .required)
-            .field("branch", .string, .required)
             .field("author", .string, .required)
             .create()
     }

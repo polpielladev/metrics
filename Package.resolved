@@ -19,15 +19,6 @@
       }
     },
     {
-      "identity" : "compute",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swift-cloud/Compute",
-      "state" : {
-        "revision" : "9b5bc752fc532b47a6f273405d5b480d83ac8b2c",
-        "version" : "2.15.0"
-      }
-    },
-    {
       "identity" : "console-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/console-kit.git",
@@ -133,6 +124,15 @@
       "state" : {
         "revision" : "b14b7f4c528c942f121c8b860b9410b2bf57825e",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
+        "version" : "1.2.2"
       }
     },
     {

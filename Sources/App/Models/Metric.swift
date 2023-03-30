@@ -19,7 +19,6 @@ final class Metric: Model, Content {
     @Field(key: "duration") var duration: TimeInterval
     @Field(key: "date") var date: Date
     @Field(key: "repository") var repository: String
-    @Field(key: "branch") var branch: String
     @Field(key: "author") var author: String
     @Enum(key: "provider") var provider: Provider
     @Enum(key: "outcome") var outcome: Outcome

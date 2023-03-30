@@ -1,0 +1,64 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Debug XcodeCloudWebhook",
+      "program": "${workspaceFolder:Metrics}/.build/debug/XcodeCloudWebhook",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Debug XcodeCloudWebhook"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Release XcodeCloudWebhook",
+      "program": "${workspaceFolder:Metrics}/.build/release/XcodeCloudWebhook",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Release XcodeCloudWebhook"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Debug GithubActionsMetricsCLI",
+      "program": "${workspaceFolder:Metrics}/.build/debug/GithubActionsMetricsCLI",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Debug GithubActionsMetricsCLI"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Release GithubActionsMetricsCLI",
+      "program": "${workspaceFolder:Metrics}/.build/release/GithubActionsMetricsCLI",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Release GithubActionsMetricsCLI"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Debug Run",
+      "program": "${workspaceFolder:Metrics}/.build/debug/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Debug Run"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Release Run",
+      "program": "${workspaceFolder:Metrics}/.build/release/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:Metrics}",
+      "preLaunchTask": "swift: Build Release Run"
+    }
+  ]
+}

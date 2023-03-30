@@ -8,20 +8,19 @@ let package = Package(
     ],
     products: [
         .executable(name: "XcodeCloudWebhook", targets: ["XcodeCloudWebhook"]),
-        .executable(name: "GithubActionsWebhook", targets: ["GithubActionsWebhook"])
+        .executable(name: "GithubActionsMetricsCLI", targets: ["GithubActionsMetricsCLI"])
     ],
     dependencies: [
         // 💧 Vapor
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
-        // 💨 Fastly Compute @ Edge
-        .package(url: "https://github.com/swift-cloud/Compute", from: "2.8.0"),
         // ⚡️ AWS Lambda
         .package(url: "https://github.com/swift-server/swift-aws-lambda-runtime.git", exact: "1.0.0-alpha.1"),
         .package(url: "https://github.com/swift-server/swift-aws-lambda-events.git", exact: "0.1.0"),
         // 🍁 Leaf
-        .package(url: "https://github.com/vapor/leaf.git", exact: "4.2.4")
+        .package(url: "https://github.com/vapor/leaf.git", exact: "4.2.4"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", exact: "1.2.2")
     ],
     targets: [
         // 💧 Vapor
@@ -42,8 +41,7 @@ let package = Package(
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),
         ]),
-        // 💨 Fastly Compute @ Edge
-        .executableTarget(name: "GithubActionsWebhook", dependencies: ["Compute"]),
+        .executableTarget(name: "GithubActionsMetricsCLI", dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")]),
         // ⚡️ AWS Lambda
         .executableTarget(
             name: "XcodeCloudWebhook",
