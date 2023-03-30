@@ -7,10 +7,10 @@ on:
 
 jobs:
   log:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - name: Get the workflow run
-        run: |
+      - uses: actions/checkout@v3
+      - run: |
           swift run GithubActionsMetricsCLI                            \ 
             "${{ github.event.workflow_run.name }}"                    \
             "${{ github.event.workflow_run.updated_at }}"              \
