@@ -1,0 +1,13 @@
+on:
+  workflow_run:
+    workflows: [Run Tests]
+    types:
+      - completed
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the workflow run
+        run: |
+          echo "whole body: ${{ toJSON(github.event.workflow_run) }}"
