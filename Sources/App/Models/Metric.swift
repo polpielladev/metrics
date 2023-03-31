@@ -16,7 +16,7 @@ final class Metric: Model, Content {
     static let schema = "metrics"
     @ID(key: .id) var id: UUID?
     @Field(key: "workflow") var workflow: String
-    @Field(key: "duration") var duration: TimeInterval
+    @Field(key: "duration") var duration: Int
     @Field(key: "date") var date: Date
     @Field(key: "repository") var repository: String
     @Field(key: "author") var author: String

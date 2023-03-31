@@ -37,7 +37,7 @@ struct GithubActionsMetricsCLI: AsyncParsableCommand {
         
         let payload = Payload(
             workflow: workflow,
-            duration: duration,
+            duration: Int(duration),
             date: startedAtDate,
             provider: .githubActions,
             author: author,

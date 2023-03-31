@@ -103,7 +103,7 @@ struct XcodeCloudWebhook: SimpleLambdaHandler {
         
         let analyticsPayload = Payload(
             workflow: payload.ciWorkflow.attributes.name,
-            duration: duration,
+            duration: Int(duration),
             date: startDate,
             provider: .xcodeCloud,
             author: payload.ciBuildRun.attributes.sourceCommit.author.displayName,

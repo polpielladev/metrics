@@ -5,7 +5,7 @@ struct CreateMetric: Migration {
         database.schema("metrics")
             .id()
             .field("workflow", .string, .required)
-            .field("duration", .double, .required)
+            .field("duration", .int, .required)
             .field("date", .datetime, .required)
             .field("provider", .string, .required)
             .field("outcome", .string, .required)

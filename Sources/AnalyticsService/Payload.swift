@@ -13,14 +13,14 @@ public enum Outcome: String, Encodable {
 
 public struct Payload: Encodable {
     let workflow: String
-    let duration: Double
+    let duration: Int
     let date: Date
     let provider: Provider
     let author: String
     let outcome: Outcome
     let repository: String
     
-    public init(workflow: String, duration: Double, date: Date, provider: Provider, author: String, outcome: Outcome, repository: String) {
+    public init(workflow: String, duration: Int, date: Date, provider: Provider, author: String, outcome: Outcome, repository: String) {
         self.workflow = workflow
         self.duration = duration
         self.date = date
