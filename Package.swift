@@ -12,9 +12,9 @@ let package = Package(
     ],
     dependencies: [
         // 💧 Vapor
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-        .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
-        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
+        .package(url: "https://github.com/vapor/vapor.git", exact: "4.74.2"),
+        .package(url: "https://github.com/vapor/fluent.git", exact: "4.7.1"),
+        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", exact: "2.5.1"),
         // ⚡️ AWS Lambda
         .package(url: "https://github.com/swift-server/swift-aws-lambda-runtime.git", exact: "1.0.0-alpha.1"),
         .package(url: "https://github.com/swift-server/swift-aws-lambda-events.git", exact: "0.1.0"),
@@ -41,7 +41,12 @@ let package = Package(
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),
         ]),
-        .executableTarget(name: "GithubActionsMetricsCLI", dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")]),
+        .executableTarget(
+            name: "GithubActionsMetricsCLI",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ]
+        ),
         // ⚡️ AWS Lambda
         .executableTarget(
             name: "XcodeCloudWebhook",
