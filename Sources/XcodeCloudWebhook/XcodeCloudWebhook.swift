@@ -1,8 +1,6 @@
 import AWSLambdaRuntime
 import AWSLambdaEvents
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
+import AnalyticsService
 import Foundation
 
 enum CompletionStatus: String, Decodable {
@@ -65,30 +63,6 @@ struct WebhookPayload: Decodable {
   }
 }
 
-struct URLSessionWrapper {
-    private let session: URLSession
-    
-    init(session: URLSession = .shared) {
-        self.session = session
-    }
-    
-    func data(for request: URLRequest) async throws -> Data {
-        try await withCheckedThrowingContinuation { continuation in
-            session.dataTask(with: request) { data, _, error in
-                if let data {
-                    continuation.resume(returning: data)
-                } else {
-                    // TODO: - Proper error handling...
-                    if let error {
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
-            .resume()
-        }
-    }
-}
-
 @main
 struct XcodeCloudWebhook: SimpleLambdaHandler {
     let decoder: JSONDecoder
@@ -115,6 +89,8 @@ struct XcodeCloudWebhook: SimpleLambdaHandler {
             return .init(statusCode: .internalServerError)
         }
         
+        let analyticsService = Factory.make(with: analyticsEndpoint)
+        
         guard let startDate = payload.ciBuildRun.attributes.startedDate,
               let duration = payload
                   .ciBuildRun
@@ -125,7 +101,7 @@ struct XcodeCloudWebhook: SimpleLambdaHandler {
             return .init(statusCode: .ok, body: "Not handling this request...")
         }
         
-        let analyticsPayload = AnalyticsPayload(
+        let analyticsPayload = Payload(
             workflow: payload.ciWorkflow.attributes.name,
             duration: duration,
             date: startDate,
@@ -134,18 +110,8 @@ struct XcodeCloudWebhook: SimpleLambdaHandler {
             outcome: outcome,
             repository: payload.scmRepository.attributes.repositoryName
         )
+        _ = try await analyticsService.send(payload: analyticsPayload)
         
-        let url = URL(string: analyticsEndpoint)!
-        var request = URLRequest(url: url)
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        request.httpMethod = "POST"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try encoder.encode(analyticsPayload)
-        
-        let urlSession = URLSessionWrapper()
-        
-        _ = try await urlSession.data(for: request)
         return .init(statusCode: .ok)
     }
     

@@ -45,7 +45,8 @@ let package = Package(
         .executableTarget(
             name: "GithubActionsMetricsCLI",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "AnalyticsService"
             ]
         ),
         // ⚡️ AWS Lambda
@@ -53,7 +54,8 @@ let package = Package(
             name: "XcodeCloudWebhook",
             dependencies: [
                 .product(name: "AWSLambdaRuntime", package: "swift-aws-lambda-runtime"),
-                .product(name: "AWSLambdaEvents", package: "swift-aws-lambda-events")
+                .product(name: "AWSLambdaEvents", package: "swift-aws-lambda-events"),
+                "AnalyticsService"
             ]
         ),
         .target(name: "AnalyticsService")

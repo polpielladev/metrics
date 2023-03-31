@@ -19,4 +19,14 @@ public struct Payload: Encodable {
     let author: String
     let outcome: Outcome
     let repository: String
+    
+    public init(workflow: String, duration: Double, date: Date, provider: Provider, author: String, outcome: Outcome, repository: String) {
+        self.workflow = workflow
+        self.duration = duration
+        self.date = date
+        self.provider = provider
+        self.author = author
+        self.outcome = outcome
+        self.repository = repository
+    }
 }
