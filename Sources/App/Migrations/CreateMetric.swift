@@ -6,7 +6,7 @@ struct CreateMetric: Migration {
             .id()
             .field("workflow", .string, .required)
             .field("duration", .double, .required)
-            .field("date", .date, .required)
+            .field("date", .datetime, .required)
             .field("provider", .string, .required)
             .field("outcome", .string, .required)
             .field("repository", .string, .required)
