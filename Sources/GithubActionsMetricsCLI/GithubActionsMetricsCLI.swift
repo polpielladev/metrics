@@ -28,7 +28,12 @@ struct GithubActionsMetricsCLI: AsyncParsableCommand {
         let duration = updateAtDate.timeIntervalSince(startedAtDate)
         
         let payload = AnalyticsPayload(workflow: workflow, duration: duration, date: startedAtDate, provider: "github-actions", author: author, outcome: outcome, repository: repository)
-        let url = URL(string: "http://localhost:8080/api/metrics")!
+        guard let analyticsEndpoint = ProcessInfo.processInfo.environment["ANALYTICS_ENDPOINT"] else {
+            print("ANALYTICS_ENDPOINT is not set. Skipping sending analytics.")
+            return
+        }
+
+        let url = URL(string: analyticsEndpoint)!
         var request = URLRequest(url: url)
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
