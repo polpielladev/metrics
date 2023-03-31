@@ -5,11 +5,6 @@ import FoundationNetworking
 #endif
 import Foundation
 
-enum Provider: String, Codable {
-    case xcodeCloud = "xcode-cloud"
-    case githubActions = "github-actions"
-}
-
 enum CompletionStatus: String, Decodable {
     case succeeded = "SUCCEEDED"
     case failed = "FAILED"
@@ -68,22 +63,6 @@ struct WebhookPayload: Decodable {
       let repositoryName: String
     }
   }
-}
-
-enum Outcome: String, Encodable {
-    case success
-    case failure
-    case cancelled
-}
-
-struct AnalyticsPayload: Encodable {
-    let workflow: String
-    let duration: Double
-    let date: Date
-    let provider: Provider
-    let author: String
-    let outcome: Outcome
-    let repository: String
 }
 
 struct URLSessionWrapper {

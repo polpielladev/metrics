@@ -8,7 +8,8 @@ let package = Package(
     ],
     products: [
         .executable(name: "XcodeCloudWebhook", targets: ["XcodeCloudWebhook"]),
-        .executable(name: "GithubActionsMetricsCLI", targets: ["GithubActionsMetricsCLI"])
+        .executable(name: "GithubActionsMetricsCLI", targets: ["GithubActionsMetricsCLI"]),
+        .library(name: "AnalyticsService", targets: ["AnalyticsService"])
     ],
     dependencies: [
         // 💧 Vapor
@@ -54,6 +55,7 @@ let package = Package(
                 .product(name: "AWSLambdaRuntime", package: "swift-aws-lambda-runtime"),
                 .product(name: "AWSLambdaEvents", package: "swift-aws-lambda-events")
             ]
-        )
+        ),
+        .target(name: "AnalyticsService")
     ]
 )
