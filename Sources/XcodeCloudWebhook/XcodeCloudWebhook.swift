@@ -128,7 +128,7 @@ struct XcodeCloudWebhook: SimpleLambdaHandler {
               let bodyData = body.data(using: .utf8),
               let payload = try? decoder.decode(WebhookPayload.self, from: bodyData),
               payload.ciBuildRun.attributes.executionProgress == "COMPLETE" else {
-            return .init(statusCode: .badRequest, body: "Could not parse the request content...")
+            return .init(statusCode: .ok, body: "Not handling the request...")
         }
 
         guard let analyticsEndpoint = ProcessInfo.processInfo.environment["ANALYTICS_ENDPOINT"] else {
